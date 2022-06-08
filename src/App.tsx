@@ -12,9 +12,10 @@ function App() {
   const [bimestral, setBimestral] = useState(false)
   const [isMensualActivo, setIsMensualActivo] = useState(true)
   const [isBimestralActivo, setIsBimestralActivo] = useState(true)
-  const [diasTranscurridos, setDiasTranscurridos] = useState('')
+  const [diasTranscurridos, setDiasTranscurridos] = useState(0)
   const [kwhConsumidos, setKwhConsumidos] = useState('')
   const [kwhPromedio, setKwhPromedio] = useState('')
+  const [diasTerminoPeriodo, setDiasTerminoPeriodo] = useState(0)
 
   const handleChangeInputDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     const temp = dayjs(event.target.value)
@@ -60,12 +61,15 @@ function App() {
     const kwhConsumidosTemp = kwhActual - kwhCorte
     console.log(kwhConsumidosTemp)
     const tempDiasTrans = calcularDiasTranscurridosAlDiaDeHoy(fechaCorte as dayjs.Dayjs)
-    setDiasTranscurridos(tempDiasTrans)
+    setDiasTranscurridos(+tempDiasTrans)
 
     setKwhConsumidos(kwhConsumidosTemp.toString())
 
     const tempKwhPromedio = kwhConsumidosTemp / diasDelPeriodo
     setKwhPromedio(tempKwhPromedio.toFixed(2).toString())
+
+    const tempDiasTerminoPeriodo = diasDelPeriodo - +tempDiasTrans
+    setDiasTerminoPeriodo(+tempDiasTerminoPeriodo)
   }
 
   const calcularDiasTranscurridosAlDiaDeHoy = (fecha: dayjs.Dayjs): string => {
@@ -98,6 +102,7 @@ function App() {
       <p>Dias Trabscurridos : {diasTranscurridos}</p>
       <p>Kwh consumidos : {kwhConsumidos} kwh</p>
       <p>Kwh promedio diarios : {kwhPromedio} kwh</p>
+      <p>Dias para terminar este periodo : {diasTerminoPeriodo} días</p>
     </div>
   )
 }
