@@ -1,18 +1,23 @@
 import React, { useState } from 'react'
-import './App.css'
+import * as dayjs from 'dayjs'
+import es from 'dayjs/locale/es'
+
+dayjs.locale(es)
 
 function App() {
-  const [fechaCorte, setFechaCorte] = useState<Date | null>(null)
+  const [fechaCorte, setFechaCorte] = useState<dayjs.Dayjs | null>(null)
   const [kwhcorte, setKwhCorte] = useState(0)
   const [kwhActual, setKwhActual] = useState(0)
   const [mensual, setMensual] = useState(false)
   const [bimestral, setBimestral] = useState(false)
   const [isMensualActivo, setIsMensualActivo] = useState(true)
   const [isBimestralActivo, setIsBimestralActivo] = useState(true)
-
+  const [diasTranscurridos, setDiasTranscurridos] = useState('')
   const handleChangeInputDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const tempDate = new Date(event.target.value + 'T00:00:00')
-    setFechaCorte(tempDate)
+    const temp = dayjs(event.target.value)
+    setFechaCorte(temp)
+    const tempDiasTrans = calcularDiasTranscurridosAlDiaDeHoy(temp)
+    setDiasTranscurridos(tempDiasTrans)
   }
 
   const handleChangeInputText = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,10 +45,17 @@ function App() {
     }
   }
 
+  const calcularDiasTranscurridosAlDiaDeHoy = (fecha: dayjs.Dayjs): string => {
+    const fechaActual = dayjs()
+    console.log(fechaActual)
+    const diasTranscurridos = fechaActual.diff(fecha.format('YYYY-MM-DD'), 'days')
+    return diasTranscurridos.toString()
+  }
+
   return (
     <div className="App">
       <h1>Kwh Counter 💡👌</h1>
-      <form action="">
+      <form>
         <label htmlFor="fechacorte">Fecha de corte : </label>
         <input onChange={handleChangeInputDate} type="date" name="fechacorte" />
         <label>
@@ -61,7 +73,7 @@ function App() {
         <input onChange={handleChangeInputText} type="number" name="kwhactual" value={kwhActual} />
         <button>Calcular</button>
       </form>
-      <p>Dias Trabscurridos : 15</p>
+      <p>Dias Trabscurridos : {diasTranscurridos}</p>
       <p>Kwh consumidos : 580 kwh</p>
       <p>Kwh promedio diarios : 18.57 kwh</p>
     </div>
