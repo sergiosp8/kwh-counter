@@ -6,12 +6,15 @@ import CardKwhCounter from './components/kwhcounter/CardKwhCounter'
 const INITAL_STATE: KwhCounterEntidad = {
   fechaCorte: null,
   modoCobro: 'mensual',
-  kwhCorte: 0,
-  kwhActual: 0
+  kwhConsumido: '',
+  kwhPromedio: '',
+  diasTranscurridos: '',
+  diasParaTerminarPeriodo: ''
 }
 
 function App() {
   const [kwhCounterEntidad, setKwhCounterEntidad] = useState<KwhCounterEntidad>(INITAL_STATE)
+  const { kwhConsumido, kwhPromedio, diasParaTerminarPeriodo, diasTranscurridos } = kwhCounterEntidad
 
   const actualizarKwhCounterEntidad = (kwhCounterEntidad: KwhCounterEntidad) => {
     setKwhCounterEntidad(kwhCounterEntidad)
@@ -22,11 +25,14 @@ function App() {
       <h1>Kwh Counter 💡👌</h1>
       {JSON.stringify(kwhCounterEntidad)}
       <FormKwhCounter actualizarKwhCounterEntidad={actualizarKwhCounterEntidad} />
-      {kwhCounterEntidad.fechaCorte && <CardKwhCounter />}
-      {/* <p>Dias Trabscurridos : {diasTranscurridos}</p>
-      <p>Kwh consumidos : {kwhConsumidos} kwh</p>
-      <p>Kwh promedio diarios : {kwhPromedio} kwh</p>
-      <p>Dias para terminar este periodo : {diasTerminoPeriodo} días</p> */}
+      {kwhCounterEntidad.fechaCorte && (
+        <CardKwhCounter
+          kwhConsumidos={kwhConsumido}
+          kwhPromedio={kwhPromedio}
+          diasTerminoPeriodo={diasParaTerminarPeriodo}
+          diasTranscurridos={diasTranscurridos}
+        />
+      )}
     </div>
   )
 }
