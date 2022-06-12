@@ -17,3 +17,13 @@ export const fechaMayorQueHoy = (fecha: dayjs.Dayjs): boolean => {
   const fechaActual = dayjs()
   return fecha.isAfter(fechaActual)
 }
+
+export const KwmConusidos = (kwhcorte: number, kwhactual: number): string => {
+  const kwmConusidos = kwhactual - kwhcorte
+  return kwmConusidos.toString()
+}
+
+export const kwhPromedioDiario = (kwhconsumidos: number, diasTranscurridos: number): string => {
+  const kwhPromedio = kwhconsumidos / diasTranscurridos
+  return kwhPromedio.toString()
+}
