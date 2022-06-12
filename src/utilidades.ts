@@ -1,3 +1,4 @@
+import { metodoCrobro } from './components/kwhcounter/types'
 import * as dayjs from 'dayjs'
 import es from 'dayjs/locale/es'
 
@@ -26,4 +27,15 @@ export const KwmConusidos = (kwhcorte: number, kwhactual: number): string => {
 export const kwhPromedioDiario = (kwhconsumidos: number, diasTranscurridos: number): string => {
   const kwhPromedio = kwhconsumidos / diasTranscurridos
   return kwhPromedio.toString()
+}
+
+export const diasRestantesEntreDosFechas = (fechaInicio: dayjs.Dayjs, fechaFin: dayjs.Dayjs): string => {
+  const diasRestantes = fechaFin.diff(fechaInicio, 'days')
+  return diasRestantes.toString()
+}
+
+export const diasTranscurridosDelPeriodo = (fechaInicio: dayjs.Dayjs, metodoCrobro: metodoCrobro): string => {
+  const fechaFinPeriodo = fechaInicio.add(metodoCrobro === 'mensual' ? 30 : 60, 'days')
+  const diasTranscurridos = fechaFinPeriodo.diff(dayjs(), 'days')
+  return diasTranscurridos.toString()
 }
