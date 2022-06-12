@@ -3,6 +3,12 @@ import React, { useState } from 'react'
 import InputDateKhwCounter from './InputDateKhwCounter'
 import CheckBoxKwhCounter from './CheckBoxKwhCounter'
 import { KwhCounterEntidad, metodoCrobro } from './types'
+import {
+  diasTranscurridosAlDiaDeHoy,
+  diasTranscurridosDelPeriodo,
+  KwmConusidos,
+  kwhPromedioDiario
+} from '../../utilidades'
 
 export default function FormKwhCounter({
   actualizarKwhCounterEntidad
@@ -48,11 +54,19 @@ export default function FormKwhCounter({
       agregarMensajeError(tempString)
       return
     }
+
+    const diasTranscurridos = diasTranscurridosAlDiaDeHoy(fechaCorte)
+    const diasParaTerrminarPeriodo = diasTranscurridosDelPeriodo(fechaCorte, modoCobro)
+    const kwhConsumido = KwmConusidos(+kwhCorte, +kwhActual)
+    const kwhPromedio = kwhPromedioDiario(+kwhConsumido, +diasTranscurridos)
+
     actualizarKwhCounterEntidad({
       fechaCorte,
       modoCobro,
-      kwhCorte,
-      kwhActual
+      diasTranscurridos,
+      diasParaTerminarPeriodo: diasParaTerrminarPeriodo,
+      kwhConsumido,
+      kwhPromedio
     })
   }
 
