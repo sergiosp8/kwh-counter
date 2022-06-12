@@ -1,16 +1,19 @@
-// import React, { useState } from 'react'
-
 import dayjs from 'dayjs'
 import React, { useState } from 'react'
 import InputDateKhwCounter from './InputDateKhwCounter'
 import CheckBoxKwhCounter from './CheckBoxKwhCounter'
-import { metodoCrobro } from './types'
+import { KwhCounterEntidad, metodoCrobro } from './types'
 
-export default function FormKwhCounter() {
+export default function FormKwhCounter({
+  actualizarKwhCounterEntidad
+}: {
+  actualizarKwhCounterEntidad: (kwhCounterEntidad: KwhCounterEntidad) => void
+}) {
   const [fechaCorte, setFechaCorte] = useState<dayjs.Dayjs | null>(null)
   const [modoCobro, setModoCobro] = useState<metodoCrobro>('mensual')
   const [kwhCorte, setKwhCorte] = useState<number | string>('')
   const [kwhActual, setKwhActual] = useState<number | string>('')
+  const [mensageError, setMensageError] = useState<string[]>([])
 
   const handleChangeInputText = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target
@@ -22,33 +25,40 @@ export default function FormKwhCounter() {
     }
   }
 
-  // const handleSubmitCalcular = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault()
+  const limpiarMesnsajesError = () => {
+    setTimeout(() => {
+      setMensageError([])
+    }, 3000)
+  }
 
-  //   let diasDelPeriodo = 0
-  //   if (mensual) {
-  //     diasDelPeriodo = 30
-  //   }
-  //   if (bimestral) {
-  //     diasDelPeriodo = 60
-  //   }
+  const agregarMensajeError = (mensaje: string) => {
+    setMensageError([...mensageError, mensaje])
+    limpiarMesnsajesError()
+  }
 
-  //   const kwhConsumidosTemp = kwhActual - kwhCorte
-  //   const tempDiasTrans = diasTranscurridosAlDiaDeHoy(fechaCorte as dayjs.Dayjs)
-  //   setDiasTranscurridos(+tempDiasTrans)
-
-  //   setKwhConsumidos(kwhConsumidosTemp.toString())
-
-  //   const tempKwhPromedio = kwhConsumidosTemp / diasDelPeriodo
-  //   setKwhPromedio(tempKwhPromedio.toFixed(2).toString())
-
-  //   const tempDiasTerminoPeriodo = diasDelPeriodo - +tempDiasTrans
-  //   setDiasTerminoPeriodo(+tempDiasTerminoPeriodo)
-  // }
+  const handleSubmitCalcular = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (fechaCorte === null) {
+      const tempString = 'Fecha de corte no definida'
+      agregarMensajeError(tempString)
+      return
+    }
+    if (kwhCorte === '' || kwhActual === '') {
+      const tempString = 'Ingrese los kwhs'
+      agregarMensajeError(tempString)
+      return
+    }
+    actualizarKwhCounterEntidad({
+      fechaCorte,
+      modoCobro,
+      kwhCorte,
+      kwhActual
+    })
+  }
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmitCalcular}>
         <label htmlFor="fechacorte">Selecciona fecha de Corte : </label>
         <InputDateKhwCounter setFechaCorte={setFechaCorte} />
         <CheckBoxKwhCounter setModoCobro={setModoCobro} defaultModoCobro={modoCobro} />
@@ -68,6 +78,7 @@ export default function FormKwhCounter() {
         />
         <button>Calcular</button>
       </form>
+      {JSON.stringify(mensageError)}
     </>
   )
 }
