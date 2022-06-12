@@ -5,6 +5,8 @@ export type metodoCrobro = 'mensual' | 'bimestral'
 export interface KwhCounterEntidad {
   fechaCorte: dayjs.Dayjs | null
   modoCobro: metodoCrobro
-  kwhCorte: number | string
-  kwhActual: number | string
+  kwhConsumido: string
+  kwhPromedio: string
+  diasTranscurridos: string
+  diasParaTerminarPeriodo: string
 }
