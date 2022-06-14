@@ -9,42 +9,9 @@ import {
   KwmConusidos,
   kwhPromedioDiario
 } from '../../utilidades'
-import styled from 'styled-components'
 
-const Input = styled.input`
-  color: white;
-  padding: 0.3rem;
-  border: none;
-  border-radius: 0.2rem;
-  background-color: rgb(209 213 219);
-  background-color: rgb(17 24 39);
-  color-scheme: dark;
-`
-
-const ContainerForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 400px;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  background-color: rgb(55 65 81);
-  gap: 0.3rem;
-`
-
-const ButtonDark = styled.button`
-  color: white;
-  padding: 0.3rem;
-  background-color: rgb(28 25 23);
-  border: none;
-  padding: 0.5rem;
-  border-radius: 0.4rem;
-
-  &:hover {
-    background-color: rgb(17 24 39);
-  }
-`
+import { ContainerApp, Input, ButtonDark } from './styledGenerals'
+import MensajeError from './MensajeError'
 
 export default function FormKwhCounter({
   actualizarKwhCounterEntidad
@@ -55,7 +22,7 @@ export default function FormKwhCounter({
   const [modoCobro, setModoCobro] = useState<metodoCrobro>('mensual')
   const [kwhCorte, setKwhCorte] = useState<number | string>('')
   const [kwhActual, setKwhActual] = useState<number | string>('')
-  const [mensageError, setMensageError] = useState<string[]>([])
+  const [mensajeError, setMensageError] = useState<string>('')
 
   const handleChangeInputText = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target
@@ -69,12 +36,12 @@ export default function FormKwhCounter({
 
   const limpiarMesnsajesError = () => {
     setTimeout(() => {
-      setMensageError([])
+      setMensageError('')
     }, 3000)
   }
 
   const agregarMensajeError = (mensaje: string) => {
-    setMensageError([...mensageError, mensaje])
+    setMensageError(mensaje)
     limpiarMesnsajesError()
   }
 
@@ -109,7 +76,8 @@ export default function FormKwhCounter({
   return (
     <>
       <form onSubmit={handleSubmitCalcular}>
-        <ContainerForm>
+        <ContainerApp>
+          {mensajeError !== '' && <MensajeError mensaje={mensajeError} />}
           <div>
             <label htmlFor="fechacorte">Selecciona fecha de Corte : </label>
             <InputDateKhwCounter setFechaCorte={setFechaCorte} />
@@ -130,9 +98,8 @@ export default function FormKwhCounter({
             placeholder="Lectura Actual"
           />
           <ButtonDark>Calcular</ButtonDark>
-        </ContainerForm>
+        </ContainerApp>
       </form>
-      {JSON.stringify(mensageError)}
     </>
   )
 }
