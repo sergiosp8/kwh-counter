@@ -25,7 +25,6 @@ function App() {
     <div className="App">
       <div className="container">
         <h1>Kwh Counter 💡👌</h1>
-        {JSON.stringify(kwhCounterEntidad)}
         <FormKwhCounter actualizarKwhCounterEntidad={actualizarKwhCounterEntidad} />
         {kwhCounterEntidad.fechaCorte && (
           <CardKwhCounter
