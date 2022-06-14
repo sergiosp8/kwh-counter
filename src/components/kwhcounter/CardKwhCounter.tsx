@@ -1,16 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
-
-const CardKwhDescripcion = styled.div`
-  background-color: rgb(55 65 81);
-  width: 400px;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-`
-
-const SpanResaltar = styled.span`
-  font-weight: bold;
-`
+import { ContainerApp, SpanResaltar, LabelCenterContainer } from './styledGenerals'
+import { BiCalendar, BiCaretRightSquare } from 'react-icons/bi'
 
 interface Props {
   diasTranscurridos: string
@@ -20,20 +10,26 @@ interface Props {
 }
 const CardKwhCounter: React.FC<Props> = ({ diasTranscurridos, diasTerminoPeriodo, kwhConsumidos, kwhPromedio }) => {
   return (
-    <CardKwhDescripcion>
-      <p>
-        <SpanResaltar>Dias Trabscurridos</SpanResaltar> : {diasTranscurridos}
-      </p>
-      <p>
-        <SpanResaltar>Kwh consumidos</SpanResaltar> : {kwhConsumidos} kwh
-      </p>
-      <p>
-        <SpanResaltar>Kwh promedio diarios</SpanResaltar> : {kwhPromedio} kwh
-      </p>
-      <p>
-        <SpanResaltar>Dias para terminar este periodo</SpanResaltar> : {diasTerminoPeriodo} días
-      </p>
-    </CardKwhDescripcion>
+    <ContainerApp>
+      <div>
+        <LabelCenterContainer>
+          <BiCalendar color="#86efac" />
+          <SpanResaltar>Dias Trabscurridos</SpanResaltar> : {diasTranscurridos}
+        </LabelCenterContainer>
+        <LabelCenterContainer>
+          <BiCaretRightSquare color="#86efac" />
+          <SpanResaltar>Kwh consumidos</SpanResaltar> : {kwhConsumidos} kwh
+        </LabelCenterContainer>
+        <LabelCenterContainer>
+          <BiCaretRightSquare color="#86efac" />
+          <SpanResaltar color="#86efac">Kwh promedio diarios</SpanResaltar> : {kwhPromedio} kwh
+        </LabelCenterContainer>
+        <LabelCenterContainer>
+          <BiCalendar color="#86efac" />
+          <SpanResaltar>Dias para terminar este periodo</SpanResaltar> : {diasTerminoPeriodo} días
+        </LabelCenterContainer>
+      </div>
+    </ContainerApp>
   )
 }
 
