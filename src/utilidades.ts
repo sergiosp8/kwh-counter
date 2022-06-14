@@ -26,7 +26,7 @@ export const KwmConusidos = (kwhcorte: number, kwhactual: number): string => {
 
 export const kwhPromedioDiario = (kwhconsumidos: number, diasTranscurridos: number): string => {
   const kwhPromedio = kwhconsumidos / diasTranscurridos
-  return kwhPromedio.toString()
+  return kwhPromedio.toFixed(2).toString()
 }
 
 export const diasRestantesEntreDosFechas = (fechaInicio: dayjs.Dayjs, fechaFin: dayjs.Dayjs): string => {
