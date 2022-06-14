@@ -89,6 +89,7 @@ export default function FormKwhCounter({
             name="kwhcorte"
             value={kwhCorte}
             placeholder="Ultima Lectura"
+            pattern="\d*"
           />
           <Input
             onChange={handleChangeInputText}
@@ -96,6 +97,7 @@ export default function FormKwhCounter({
             name="kwhactual"
             value={kwhActual}
             placeholder="Lectura Actual"
+            pattern="\d*"
           />
           <ButtonDark>Calcular</ButtonDark>
         </ContainerApp>
