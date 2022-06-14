@@ -42,7 +42,7 @@ function CheckBoxKwhCounter({ setModoCobro, defaultModoCobro }: checkBoxProps) {
   }, [])
 
   return (
-    <>
+    <div>
       <label>
         Mesnual
         <input
@@ -63,7 +63,7 @@ function CheckBoxKwhCounter({ setModoCobro, defaultModoCobro }: checkBoxProps) {
           disabled={isBimestralActivo}
         />
       </label>
-    </>
+    </div>
   )
 }
 export default CheckBoxKwhCounter

@@ -9,6 +9,42 @@ import {
   KwmConusidos,
   kwhPromedioDiario
 } from '../../utilidades'
+import styled from 'styled-components'
+
+const Input = styled.input`
+  color: white;
+  padding: 0.3rem;
+  border: none;
+  border-radius: 0.2rem;
+  background-color: rgb(209 213 219);
+  background-color: rgb(17 24 39);
+  color-scheme: dark;
+`
+
+const ContainerForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background-color: rgb(55 65 81);
+  gap: 0.3rem;
+`
+
+const ButtonDark = styled.button`
+  color: white;
+  padding: 0.3rem;
+  background-color: rgb(28 25 23);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+
+  &:hover {
+    background-color: rgb(17 24 39);
+  }
+`
 
 export default function FormKwhCounter({
   actualizarKwhCounterEntidad
@@ -73,24 +109,28 @@ export default function FormKwhCounter({
   return (
     <>
       <form onSubmit={handleSubmitCalcular}>
-        <label htmlFor="fechacorte">Selecciona fecha de Corte : </label>
-        <InputDateKhwCounter setFechaCorte={setFechaCorte} />
-        <CheckBoxKwhCounter setModoCobro={setModoCobro} defaultModoCobro={modoCobro} />
-        <input
-          onChange={handleChangeInputText}
-          type="number"
-          name="kwhcorte"
-          value={kwhCorte}
-          placeholder="Ultima Lectura"
-        />
-        <input
-          onChange={handleChangeInputText}
-          type="number"
-          name="kwhactual"
-          value={kwhActual}
-          placeholder="Lectura Actual"
-        />
-        <button>Calcular</button>
+        <ContainerForm>
+          <div>
+            <label htmlFor="fechacorte">Selecciona fecha de Corte : </label>
+            <InputDateKhwCounter setFechaCorte={setFechaCorte} />
+          </div>
+          <CheckBoxKwhCounter setModoCobro={setModoCobro} defaultModoCobro={modoCobro} />
+          <Input
+            onChange={handleChangeInputText}
+            type="number"
+            name="kwhcorte"
+            value={kwhCorte}
+            placeholder="Ultima Lectura"
+          />
+          <Input
+            onChange={handleChangeInputText}
+            type="number"
+            name="kwhactual"
+            value={kwhActual}
+            placeholder="Lectura Actual"
+          />
+          <ButtonDark>Calcular</ButtonDark>
+        </ContainerForm>
       </form>
       {JSON.stringify(mensageError)}
     </>
