@@ -2,6 +2,7 @@ import FormKwhCounter from './components/kwhcounter/FormKwhCounter'
 import { KwhCounterEntidad } from '././components/kwhcounter/types'
 import { useState } from 'react'
 import CardKwhCounter from './components/kwhcounter/CardKwhCounter'
+import './App.css'
 
 const INITAL_STATE: KwhCounterEntidad = {
   fechaCorte: null,
@@ -22,17 +23,19 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Kwh Counter 💡👌</h1>
-      {JSON.stringify(kwhCounterEntidad)}
-      <FormKwhCounter actualizarKwhCounterEntidad={actualizarKwhCounterEntidad} />
-      {kwhCounterEntidad.fechaCorte && (
-        <CardKwhCounter
-          kwhConsumidos={kwhConsumido}
-          kwhPromedio={kwhPromedio}
-          diasTerminoPeriodo={diasParaTerminarPeriodo}
-          diasTranscurridos={diasTranscurridos}
-        />
-      )}
+      <div className="container">
+        <h1>Kwh Counter 💡👌</h1>
+        {JSON.stringify(kwhCounterEntidad)}
+        <FormKwhCounter actualizarKwhCounterEntidad={actualizarKwhCounterEntidad} />
+        {kwhCounterEntidad.fechaCorte && (
+          <CardKwhCounter
+            kwhConsumidos={kwhConsumido}
+            kwhPromedio={kwhPromedio}
+            diasTerminoPeriodo={diasParaTerminarPeriodo}
+            diasTranscurridos={diasTranscurridos}
+          />
+        )}
+      </div>
     </div>
   )
 }
