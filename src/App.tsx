@@ -22,19 +22,17 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <div className="container">
-        <h1>Kwh Counter 💡👌</h1>
-        <FormKwhCounter actualizarKwhCounterEntidad={actualizarKwhCounterEntidad} />
-        {kwhCounterEntidad.fechaCorte && (
-          <CardKwhCounter
-            kwhConsumidos={kwhConsumido}
-            kwhPromedio={kwhPromedio}
-            diasTerminoPeriodo={diasParaTerminarPeriodo}
-            diasTranscurridos={diasTranscurridos}
-          />
-        )}
-      </div>
+    <div className="container">
+      <h1>Kwh Counter 💡👌</h1>
+      <FormKwhCounter actualizarKwhCounterEntidad={actualizarKwhCounterEntidad} />
+      {kwhCounterEntidad.fechaCorte && (
+        <CardKwhCounter
+          kwhConsumidos={kwhConsumido}
+          kwhPromedio={kwhPromedio}
+          diasTerminoPeriodo={diasParaTerminarPeriodo}
+          diasTranscurridos={diasTranscurridos}
+        />
+      )}
     </div>
   )
 }
