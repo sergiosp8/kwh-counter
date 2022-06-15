@@ -26,12 +26,16 @@ export const ContainerApp = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 400px;
+  width: 400px;
   padding: 1.5rem;
   border-radius: 0.5rem;
   background-color: rgb(55 65 81);
   gap: 0.3rem;
   font-weight: 500;
+  @media only screen and (max-width: 600px) {
+    width: 350px;
+    font-size: 0.8rem;
+  }
 `
 
 export const ErrorContainer = styled.div`
@@ -54,5 +58,4 @@ export const LabelCenterContainer = styled.div`
   display: flex;
   gap: 0.3rem;
   align-items: center;
-  font-size: 2 vh;
 `
