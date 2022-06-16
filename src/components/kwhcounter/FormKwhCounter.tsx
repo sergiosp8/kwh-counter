@@ -1,4 +1,3 @@
-import dayjs from 'dayjs'
 import React, { useState } from 'react'
 import InputDateKhwCounter from './InputDateKhwCounter'
 import CheckBoxKwhCounter from './CheckBoxKwhCounter'
@@ -18,7 +17,7 @@ export default function FormKwhCounter({
 }: {
   actualizarKwhCounterEntidad: (kwhCounterEntidad: KwhCounterEntidad) => void
 }) {
-  const [fechaCorte, setFechaCorte] = useState<dayjs.Dayjs | null>(null)
+  const [fechaCorte, setFechaCorte] = useState<string | null>(null)
   const [modoCobro, setModoCobro] = useState<metodoCrobro>('mensual')
   const [kwhCorte, setKwhCorte] = useState<number | string>('')
   const [kwhActual, setKwhActual] = useState<number | string>('')
@@ -59,6 +58,7 @@ export default function FormKwhCounter({
     }
 
     const diasTranscurridos = diasTranscurridosAlDiaDeHoy(fechaCorte)
+    console.log('diasTranscurridos', diasTranscurridos)
     const diasParaTerrminarPeriodo = diasTranscurridosDelPeriodo(fechaCorte, modoCobro)
     const kwhConsumido = KwmConusidos(+kwhCorte, +kwhActual)
     const kwhPromedio = kwhPromedioDiario(+kwhConsumido, +diasTranscurridos)

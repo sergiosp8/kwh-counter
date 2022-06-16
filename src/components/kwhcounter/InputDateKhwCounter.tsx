@@ -1,6 +1,4 @@
-import dayjs from 'dayjs'
 import React from 'react'
-import { fechaMayorQueHoy, obtenerFecha } from '../../utilidades'
 import styled from 'styled-components'
 
 const InputDate = styled.input`
@@ -13,15 +11,21 @@ const InputDate = styled.input`
   color-scheme: dark;
 `
 
-export default function InputDateKhwCounter({ setFechaCorte }: { setFechaCorte: (fecha: dayjs.Dayjs | null) => void }) {
+interface Props {
+  setFechaCorte: (fecha: string | null) => void
+}
+
+export default function InputDateKhwCounter({ setFechaCorte }: Props) {
+  const [fechaCorte, setFechaCorteState] = React.useState<string>('')
   const handleChangeInputDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const temp = obtenerFecha(event.target.value)
-    !fechaMayorQueHoy(temp) ? setFechaCorte(temp) : setFechaCorte(null)
+    const temp = event.target.value
+    setFechaCorte(temp)
+    setFechaCorteState(temp)
   }
 
   return (
     <>
-      <InputDate onChange={handleChangeInputDate} type="date" name="fechacorte" />
+      <InputDate onChange={handleChangeInputDate} type="date" name="fechacorte" value={fechaCorte} />
     </>
   )
 }
