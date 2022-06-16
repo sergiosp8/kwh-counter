@@ -58,7 +58,6 @@ export default function FormKwhCounter({
     }
 
     const diasTranscurridos = diasTranscurridosAlDiaDeHoy(fechaCorte)
-    console.log('diasTranscurridos', diasTranscurridos)
     const diasParaTerrminarPeriodo = diasTranscurridosDelPeriodo(fechaCorte, modoCobro)
     const kwhConsumido = KwmConusidos(+kwhCorte, +kwhActual)
     const kwhPromedio = kwhPromedioDiario(+kwhConsumido, +diasTranscurridos)
