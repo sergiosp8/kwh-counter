@@ -5,7 +5,7 @@ import CardKwhCounter from './components/kwhcounter/CardKwhCounter'
 import './App.css'
 
 const INITAL_STATE: KwhCounterEntidad = {
-  fechaCorte: null,
+  fechaCorte: '',
   modoCobro: 'mensual',
   kwhConsumido: '',
   kwhPromedio: '',
@@ -25,7 +25,7 @@ function App() {
     <div className="container">
       <h1>Kwh Counter 💡👌</h1>
       <FormKwhCounter actualizarKwhCounterEntidad={actualizarKwhCounterEntidad} />
-      {kwhCounterEntidad.fechaCorte && (
+      {kwhCounterEntidad.fechaCorte !== '' && (
         <CardKwhCounter
           kwhConsumidos={kwhConsumido}
           kwhPromedio={kwhPromedio}

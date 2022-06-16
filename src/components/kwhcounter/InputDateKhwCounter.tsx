@@ -12,15 +12,15 @@ const InputDate = styled.input`
 `
 
 interface Props {
-  setFechaCorte: (fecha: string | null) => void
+  setFechaCorte: (fecha: string) => void
 }
 
 export default function InputDateKhwCounter({ setFechaCorte }: Props) {
   const [fechaCorte, setFechaCorteState] = React.useState<string>('')
   const handleChangeInputDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     const temp = event.target.value
-    setFechaCorte(temp)
     setFechaCorteState(temp)
+    setFechaCorte(temp)
   }
 
   return (

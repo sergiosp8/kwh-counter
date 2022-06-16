@@ -1,5 +1,5 @@
 import { metodoCrobro } from './components/kwhcounter/types'
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 import es from 'dayjs/locale/es'
 
 dayjs.locale(es)

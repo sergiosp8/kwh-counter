@@ -6,7 +6,8 @@
     "dev": "vite",
     "dev:host": "vite --host",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "preview:host": "vite preview --host"
   },
   "dependencies": {
     "dayjs": "1.11.3",

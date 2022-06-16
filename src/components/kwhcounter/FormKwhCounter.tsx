@@ -17,7 +17,7 @@ export default function FormKwhCounter({
 }: {
   actualizarKwhCounterEntidad: (kwhCounterEntidad: KwhCounterEntidad) => void
 }) {
-  const [fechaCorte, setFechaCorte] = useState<string | null>(null)
+  const [fechaCorte, setFechaCorte] = useState<string>('')
   const [modoCobro, setModoCobro] = useState<metodoCrobro>('mensual')
   const [kwhCorte, setKwhCorte] = useState<number | string>('')
   const [kwhActual, setKwhActual] = useState<number | string>('')
