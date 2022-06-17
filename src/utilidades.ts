@@ -15,10 +15,16 @@ export const obtenerFecha = (fecha: string): dayjs.Dayjs => {
   return dayjs(fecha)
 }
 
+export const fechaIgualQueHoy = (fecha: string): boolean => {
+  const fechaActual = dayjs(fecha)
+  const fechaHoy = dayjs()
+  return fechaActual.isSame(fechaHoy, 'day')
+}
+
 export const fechaMayorQueHoy = (fecha: string): boolean => {
   const fechaActual = dayjs(fecha)
   const fechaHoy = dayjs()
-  return fechaHoy.isAfter(fechaActual)
+  return fechaHoy.isBefore(fechaActual)
 }
 
 export const KwmConusidos = (kwhcorte: number, kwhactual: number): string => {
