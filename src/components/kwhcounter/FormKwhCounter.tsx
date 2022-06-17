@@ -1,35 +1,41 @@
-import React, { useState } from 'react'
-import InputDateKhwCounter from './InputDateKhwCounter'
+import React, { useEffect, useState } from 'react'
 import CheckBoxKwhCounter from './CheckBoxKwhCounter'
 import { KwhCounterEntidad, metodoCrobro } from './types'
 import {
   diasTranscurridosAlDiaDeHoy,
   diasTranscurridosDelPeriodo,
   KwmConusidos,
-  kwhPromedioDiario
+  kwhPromedioDiario,
+  fechaMayorQueHoy,
+  obtenerFecha
 } from '../../utilidades'
 
 import { ContainerApp, Input, ButtonDark } from './styledGenerals'
 import MensajeError from './MensajeError'
 
-export default function FormKwhCounter({
-  actualizarKwhCounterEntidad
-}: {
+interface FormKwhCounterProps {
+  kwhCounterEntidad: KwhCounterEntidad
   actualizarKwhCounterEntidad: (kwhCounterEntidad: KwhCounterEntidad) => void
-}) {
+}
+
+export default function FormKwhCounter({ kwhCounterEntidad, actualizarKwhCounterEntidad }: FormKwhCounterProps) {
   const [fechaCorte, setFechaCorte] = useState<string>('')
   const [modoCobro, setModoCobro] = useState<metodoCrobro>('mensual')
-  const [kwhCorte, setKwhCorte] = useState<number | string>('')
-  const [kwhActual, setKwhActual] = useState<number | string>('')
+  const [kwhCorte, setKwhCorte] = useState<string>('')
+  const [kwhActual, setKwhActual] = useState<string>('')
   const [mensajeError, setMensageError] = useState<string>('')
 
   const handleChangeInputText = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target
     if (name === 'kwhcorte') {
-      setKwhCorte(value ? parseInt(value) : '')
+      setKwhCorte(value || '')
     }
     if (name === 'kwhactual') {
-      setKwhActual(value ? parseInt(value) : '')
+      setKwhActual(value || '')
+    }
+    if (name === 'fechacorte') {
+      const tempFecha = obtenerFecha(value)
+      setFechaCorte(tempFecha || '')
     }
   }
 
@@ -51,6 +57,11 @@ export default function FormKwhCounter({
       agregarMensajeError(tempString)
       return
     }
+    if (fechaMayorQueHoy(fechaCorte)) {
+      const tempString = 'La fecha de corte no puede ser mayor a la fecha actual'
+      agregarMensajeError(tempString)
+      return
+    }
     if (kwhCorte === '' || kwhActual === '') {
       const tempString = 'Ingrese los kwhs'
       agregarMensajeError(tempString)
@@ -68,9 +79,16 @@ export default function FormKwhCounter({
       diasTranscurridos,
       diasParaTerminarPeriodo: diasParaTerrminarPeriodo,
       kwhConsumido,
-      kwhPromedio
+      kwhPromedio,
+      kwhCorte
     })
   }
+
+  useEffect(() => {
+    setFechaCorte(kwhCounterEntidad.fechaCorte)
+    setKwhCorte(kwhCounterEntidad.kwhCorte)
+    setModoCobro(kwhCounterEntidad.modoCobro)
+  }, [])
 
   return (
     <>
@@ -79,9 +97,9 @@ export default function FormKwhCounter({
           {mensajeError !== '' && <MensajeError mensaje={mensajeError} />}
           <div>
             <label htmlFor="fechacorte">Selecciona fecha de Corte : </label>
-            <InputDateKhwCounter setFechaCorte={setFechaCorte} />
+            <Input onChange={handleChangeInputText} type="date" name="fechacorte" value={fechaCorte.toString()} />
           </div>
-          <CheckBoxKwhCounter setModoCobro={setModoCobro} defaultModoCobro={modoCobro} />
+          <CheckBoxKwhCounter setModoCobro={setModoCobro} defaultModoCobro={kwhCounterEntidad.modoCobro} />
           <Input
             onChange={handleChangeInputText}
             type="number"
