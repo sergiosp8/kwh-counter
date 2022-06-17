@@ -11,8 +11,8 @@ export const diasTranscurridosAlDiaDeHoy = (fecha: string): string => {
   return diasTranscurridos.toString()
 }
 
-export const obtenerFecha = (fecha: string): dayjs.Dayjs => {
-  return dayjs(fecha)
+export const obtenerFecha = (fecha: string): string => {
+  return dayjs(fecha).format('YYYY-MM-DD')
 }
 
 export const fechaIgualQueHoy = (fecha: string): boolean => {
