@@ -46,7 +46,7 @@ export default function FormKwhCounter({
 
   const handleSubmitCalcular = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (fechaCorte === null) {
+    if (fechaCorte === '') {
       const tempString = 'Fecha de corte no definida'
       agregarMensajeError(tempString)
       return

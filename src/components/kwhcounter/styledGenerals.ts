@@ -3,11 +3,15 @@ import styled from 'styled-components'
 export const Input = styled.input`
   color: white;
   padding: 0.3rem;
-  border: none;
   border-radius: 0.2rem;
-  background-color: rgb(209 213 219);
   background-color: rgb(17 24 39);
   color-scheme: dark;
+  border: 0.5px solid transparent;
+
+  &:focus {
+    outline: none;
+    border: 0.5px solid rgb(148 163 184);
+  }
 `
 export const ButtonDark = styled.button`
   color: white;

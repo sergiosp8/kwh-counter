@@ -1,15 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
-
-const InputDate = styled.input`
-  color: white;
-  padding: 0.3rem;
-  border: none;
-  border-radius: 0.2rem;
-  background-color: rgb(209 213 219);
-  background-color: rgb(17 24 39);
-  color-scheme: dark;
-`
+import { Input } from './styledGenerals'
 
 interface Props {
   setFechaCorte: (fecha: string) => void
@@ -25,7 +15,7 @@ export default function InputDateKhwCounter({ setFechaCorte }: Props) {
 
   return (
     <>
-      <InputDate onChange={handleChangeInputDate} type="date" name="fechacorte" value={fechaCorte} />
+      <Input onChange={handleChangeInputDate} type="date" name="fechacorte" value={fechaCorte} />
     </>
   )
 }
